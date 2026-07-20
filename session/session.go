@@ -2,15 +2,15 @@ package session
 
 import (
 	"fmt"
-	"github.com/ropnop/kerbrute/util"
 	"html/template"
 	"os"
 	"strings"
 
-	"github.com/ropnop/gokrb5/v8/iana/errorcode"
+	"github.com/ropnop/kerbrute/util"
 
 	kclient "github.com/ropnop/gokrb5/v8/client"
 	kconfig "github.com/ropnop/gokrb5/v8/config"
+	"github.com/ropnop/gokrb5/v8/iana/errorcode"
 	"github.com/ropnop/gokrb5/v8/messages"
 )
 
@@ -36,18 +36,18 @@ type KerbruteSession struct {
 	Config       *kconfig.Config
 	Verbose      bool
 	SafeMode     bool
-	HashFile *os.File
-	Logger *util.Logger
+	HashFile     *os.File
+	Logger       *util.Logger
 }
 
 type KerbruteSessionOptions struct {
-	Domain string
+	Domain           string
 	DomainController string
-	Verbose bool
-	SafeMode bool
-	Downgrade bool
-	HashFilename string
-	logger *util.Logger
+	Verbose          bool
+	SafeMode         bool
+	Downgrade        bool
+	HashFilename     string
+	logger           *util.Logger
 }
 
 func NewKerbruteSession(options KerbruteSessionOptions) (k KerbruteSession, err error) {
@@ -55,7 +55,8 @@ func NewKerbruteSession(options KerbruteSessionOptions) (k KerbruteSession, err 
 		return k, fmt.Errorf("domain must not be empty")
 	}
 	if options.logger == nil {
-		logger := util.NewLogger(options.Verbose, "")
+		// Added "default" as the third argument to match the new util.NewLogger signature
+		logger := util.NewLogger(options.Verbose, "", "default")
 		options.logger = &logger
 	}
 	var hashFile *os.File
@@ -92,7 +93,7 @@ func NewKerbruteSession(options KerbruteSessionOptions) (k KerbruteSession, err 
 		Config:       Config,
 		Verbose:      options.Verbose,
 		SafeMode:     options.SafeMode,
-		HashFile: hashFile,
+		HashFile:     hashFile,
 		Logger:       options.logger,
 	}
 	return k, err

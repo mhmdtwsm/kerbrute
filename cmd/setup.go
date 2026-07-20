@@ -19,12 +19,13 @@ var (
 	threads          int
 	stopOnSuccess    bool
 	userAsPass       = false
+	outputMode       string // <-- Added variable
 
-	downgrade bool
+	downgrade    bool
 	hashFileName string
 
-	logger           util.Logger
-	kSession         session.KerbruteSession
+	logger   util.Logger
+	kSession session.KerbruteSession
 
 	// Used for multithreading
 	ctx, cancel = context.WithCancel(context.Background())
@@ -33,14 +34,14 @@ var (
 )
 
 func setupSession(cmd *cobra.Command, args []string) {
-	logger = util.NewLogger(verbose, logFileName)
+	logger = util.NewLogger(verbose, logFileName, outputMode) // <-- Passed outputMode here
 	kOptions := session.KerbruteSessionOptions{
 		Domain:           domain,
 		DomainController: domainController,
 		Verbose:          verbose,
 		SafeMode:         safe,
 		HashFilename:     hashFileName,
-		Downgrade: downgrade,
+		Downgrade:        downgrade,
 	}
 	k, err := session.NewKerbruteSession(kOptions)
 	if err != nil {

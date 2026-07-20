@@ -23,6 +23,7 @@ func Execute() {
 }
 
 func init() {
+	rootCmd.PersistentFlags().StringVar(&outputMode, "output-mode", "default", "Clean output formats: default, email, or user") // <-- Added Flag
 	rootCmd.PersistentFlags().StringVarP(&domain, "domain", "d", "", "The full domain to use (e.g. contoso.com)")
 	rootCmd.PersistentFlags().StringVar(&domainController, "dc", "", "The location of the Domain Controller (KDC) to target. If blank, will lookup via DNS")
 	rootCmd.PersistentFlags().StringVarP(&logFileName, "output", "o", "", "File to write logs to. Optional.")
@@ -35,5 +36,4 @@ func init() {
 	if delay != 0 {
 		threads = 1
 	}
-
 }
