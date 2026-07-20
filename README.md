@@ -1,4 +1,3 @@
-```markdown
 # Kerbrute
 [![CircleCI](https://circleci.com/gh/ropnop/kerbrute.svg?style=svg)](https://circleci.com/gh/ropnop/kerbrute)
 
@@ -21,7 +20,6 @@ This is a custom fork of Kerbrute featuring an added **`--output-mode`** flag. T
 Example usage with clean file output:
 ```bash
 ./kerbrute userenum -d thm.loc --dc 192.168.12.100 usernames.txt -o valid_users.txt --output-mode=user
-
 ```
 
 ---
